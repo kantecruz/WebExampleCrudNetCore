@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+    <div class="login-box ptb--100">
+     
+        <form method="post" asp-controller="account" asp-action="login">
+            <div class="login-form-head">
+                <h4>Sign In</h4>
+                <p>@ViewBag.error</p>
+            </div>
+            <div class="login-form-body">
+                <div class="form-gp">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" id="exampleInputEmail1" name="email">
+                    <i class="ti-email"></i>
+                    <div class="text-danger"></div>
+                </div>
+                <div class="form-gp">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" id="exampleInputPassword1" name="password">
+                    <i class="ti-lock"></i>
+                    <div class="text-danger"></div>
+                </div>
+                <div class="submit-btn-area">
+                    <button id="form_submit" type="submit">Submit <i class="ti-arrow-right"></i></button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+

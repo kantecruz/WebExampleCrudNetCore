@@ -1,0 +1,115 @@
+﻿@model PaginatedList<WebExampleCrudNetCore.Models.Producto>
+@using WebExampleCrudNetCore.Class;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- page title area start -->
+<div class="page-title-area mt-2">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <h4 class="page-title pull-left">Dashboard</h4>
+                <ul class="breadcrumbs pull-left">
+                    <li><a href="index.html">Productos</a></li>
+                    <li><span>Nuevo</span></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- page title area end -->
+
+<p class="mt-3 mb-3">
+    <a  class="btn btn-primary" asp-action="Create"><i class="fa fa-plus-circle"></i>Nuevo</a>
+</p>
+<form asp-action="Index" class="form-inline" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Descripción: <input type="text" class="form-control" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Buscar" class="btn btn-success" /> |
+            <a asp-action="Index" class="btn btn-info">Listado Completo</a>
+        </p>
+    </div>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Codigo
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Precio Venta
+            </th>
+            <th>
+                Stock
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Estado
+            </th>
+            <th>
+                Categoria
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioVenta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdcategoriaNavigation.Descripcion)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Idproducto"><i class="fa fa-edit btn btn-success"></i></a> 
+                    <a asp-action="Details" asp-route-id="@item.Idproducto"><i class="fa fa-list btn btn-info"></i></a> 
+                    <a asp-action="Delete" asp-route-id="@item.Idproducto"><i class="fa fa-trash-o btn btn-danger"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Anterior
+</a>
+<a asp-action="Index"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Siguiente
+</a>
